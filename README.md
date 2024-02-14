@@ -1,7 +1,7 @@
 
 # Server di Gestione Corsi
 
-Questo progetto è un server Node.js che gestisce un sistema di corsi. Gli amministratori possono creare, modificare ed eliminare corsi, mentre gli utenti possono iscriversi ai corsi disponibili.
+Questo progetto è un server Node.js che gestisce un sistema di corsi. Gli amministratori possono creare, modificare ed eliminare corsi, mentre chiunque può accedere alle informazioni sui corsi disponibili.
 
 ## Prerequisiti
 
