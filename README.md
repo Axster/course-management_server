@@ -21,12 +21,16 @@ git clone https://github.com/andrea.cauchi/nome-tuo-repository.git
 npm install
 ```
 
-3. Crea un file `.env` nella radice del progetto con le seguenti variabili d'ambiente:
+3. Crea un file `.env` nella radice del progetto per ogni DB che si vuole usare con le seguenti variabili d'ambiente:
 
 ```env
-PORT=3000
 MONGO_URI=tuo-indirizzo-mongodb
-JWT_SECRET=tuo-segreto-jwt
+```
+```env.test
+MONGO_URI=tuo-indirizzo-mongodb-test
+```
+```env.stage
+MONGO_URI=tuo-indirizzo-mongodb-stage
 ```
 
 ## Comandi disponibili
