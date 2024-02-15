@@ -11,7 +11,7 @@ import {salt} from "../middlewares/authAdmins";
 import {config} from 'dotenv'
 import path from 'path'
 
-//faccio in modo che i test siano indipendenti l'uno dall'altro 
+//Faccio in modo che i test siano indipendenti l'uno dall'altro 
 
 config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)})
 
@@ -33,12 +33,13 @@ const admin = () => {
 }
 
 //Admin registrato e validato che deve essere presente nel DB all'avvio dei test
-export const signedAdmin = {
-  _id:'657af10c415e41f083547dc8',
+const email = `${v4()}@email.com`
+const signedAdmin = {
+  _id: new Types.ObjectId().toString(),
   name: "Giacomo",
   surname:"Poretti",
-  email:"cadrega@email.com", 
-  confirmedEmail:"cadrega@email.com",
+  email:email, 
+  confirmedEmail:email,
   isConfirmedEmail:true,
   password: hashSync("Yoq@ndowi21389G", salt)
 }
@@ -55,8 +56,8 @@ afterEach(async () => {
 });
 //alla fine di tutti i test elimino l'admin che uso come admin registrato di esempio
 after(async () => {
+  await connect(process.env.MONGODB as string)
   await Admin.findByIdAndDelete(signedAdmin._id)
-  await disconnect()
 });
 
 describe("server status", () => {

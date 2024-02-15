@@ -5,8 +5,8 @@ import { Course } from '../models/Course';
 
 //array di validazioni e sanificazioni
 export const filterCourses = [
-    query("MaxCost").optional().trim(),
-    query("MaxDuration").optional().trim(),
+    query("maxCost").optional().trim(),
+    query("maxDuration").optional().trim(),
     query("category").optional().trim(),
     query('maxNumMembers').optional().trim(),
 ]
@@ -18,11 +18,11 @@ export const searchCourses =  (req: Request, res: Response, next: NextFunction) 
     if(req.query.category){
     search = {...search, category: req.query.category} 
     }
-    if(req.query.MaxDuration){
-        search = {...search, duration: {$lte: req.query.MaxDuration}}
+    if(req.query.maxDuration){
+        search = {...search, duration: {$lte: req.query.maxDuration}}
     }
-    if(req.query.MaxCost){
-        search = {...search, cost: {$lte: req.query.MaxCost}}
+    if(req.query.maxCost){
+        search = {...search, cost: {$lte: req.query.maxCost}}
     }
     if(req.query.maxNumMembers){
         search = {...search, maxNumMembers: {$lte: req.query.maxNumMembers}}
@@ -35,6 +35,7 @@ export const searchCourses =  (req: Request, res: Response, next: NextFunction) 
 export const isOkCourse = [
     body('_id').optional().trim().isMongoId(),
     body("name").notEmpty().trim(),
+    body("category").notEmpty().trim(),
     body("duration").notEmpty().trim(),
     body("cost").notEmpty().trim(),
     body("maxNumMembers").notEmpty().trim(),

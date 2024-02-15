@@ -11,7 +11,7 @@ const router = express.Router()
 //1 e 6
 router.get("/", filterCourses, searchCourses, async (req:Request, res:Response) =>{
     const courses =  await Course.find(res.locals.search)
-    if (!courses){
+    if (courses.length === 0){
         res.status(404).json({message: "there are no active courses with this params"})
     }
     res.json(courses)
@@ -27,18 +27,18 @@ router.get("/:_id", param('_id').isMongoId(), checkValidation, async (req:Reques
 })
 
 //3
-router.get("/:category", param('category').trim().toLowerCase(), async (req:Request, res:Response) =>{
-    const course =  await Course.findOne({category: matchedData(req)}) //passo alla ricerca i dati sanificati
-    if (!course){
+router.get("/category/:category", param('category').trim(), async (req:Request, res:Response) =>{
+    const courses =  await Course.find(matchedData(req)) //ricerco i dati sanificati
+    if (courses.length===0){
         res.status(404).json({message: "course not found"})
     }
-    res.json(course)
+    res.json(courses)
 })
 
 
 
 //i seguenti endpoint sono accessibilii solo agli admin 
-//gli utenti non dovrebbero accedere a questi servizi in fatti utilizzo il middleware auth
+//gli utenti non dovrebbero accedere a questi servizi infatti utilizzo il middleware auth
 
 //4
 router.delete("/:_id",
@@ -64,7 +64,7 @@ async(req:Request, res:Response) =>{
         res.json(await course.save())
     }
     catch(err){
-        res.status(409).json(err)
+        res.status(500).json(err)
     }
 })
 

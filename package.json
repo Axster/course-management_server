@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "SET NODE_ENV=test&& tsc && mocha dist/tests/courses.js -timeout=10000",
+    "test": "SET NODE_ENV=test&& tsc && mocha dist/tests/*.js -timeout=10000",
     "start:stage": "SET NODE_ENV=stage&& tsc && node dist/app.js",
     "start": "SET NODE_ENV=production&& tsc && node dist/app.js",
     "dev": "SET NODE_ENV=stage&& nodemon src/app.ts"
